@@ -4,50 +4,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Olá, Nuvem</title>
+  <title>Frase do dia</title>
   <style>
     body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      font-family: system-ui, sans-serif;
-      background: #0f172a;
-      color: #f8fafc;
+      font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
     }
 
-    main {
-      text-align: center;
-      padding: 30px;
-      max-width: 520px;
+    .container {
+            text-align: center;
+            max-width: 500px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
-    h1 {
-      font-size: 42px;
-      margin: 0 0 10px;
-    }
-
-    #status {
-      font-size: 18px;
-      color: #cbd5e1;
-      min-height: 54px;
-      line-height: 1.5;
+    p {
+      font-size: 1.2rem;
+      color:#333;
+      min-height: 60px; /* Evita que o layout quebre se a frase for longa */
     }
 
     button {
-      margin-top: 18px;
-      background: #38bdf8;
-      color: #0f172a;
-      border: none;
-      padding: 12px 22px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #7dd3fc;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #0070f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #0051a8; 
     }
   </style>
 </head>
@@ -55,8 +51,8 @@
 <body>
   <main>
     <h1>Olá, Nuvem</h1>
-    <p id="status">Carregando a resposta do servidor...</p>
-    <button id="btn">Buscar de novo</button>
+    <p id="status">Carregando a resposta do divo...</p>
+    <button id="btn">Nova frase</button>
   </main>
 
   <script>
