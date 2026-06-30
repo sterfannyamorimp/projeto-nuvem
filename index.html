@@ -50,7 +50,7 @@
 
 <body>
   <main>
-    <h1>Olá, Nuvem</h1>
+    <h1>Olá, Divo(a)</h1>
     <p id="status">Carregando a resposta do divo...</p>
     <button id="btn">Nova frase</button>
   </main>
@@ -66,7 +66,7 @@
       try {
         const resposta = await fetch(URL_DO_WORKER);
         const dados = await resposta.json();
-        status.textContent = dados.mensagem + " Hora do servidor: " + dados.horaDoServidor;
+        status.textContent = dados.mensagem 
       } catch (erro) {
         status.textContent = "Não consegui falar com o Worker. Confira a URL.";
       }
