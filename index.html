@@ -7,45 +7,67 @@
   <title>Frase do dia</title>
   <style>
     body {
-      font-family: Inter;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #945bff;
-            margin: 0;
-            src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2');
+      font-family: Inter, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #945bff;
+      margin: 0;
     }
 
-    .container {
-            text-align: center;
-            max-width: 500px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(208, 233, 254, 0.1);
+    main {
+      text-align: center;
+      max-width: 500px;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 0;
     }
 
     p {
       font-size: 1.2rem;
-      color:#fbf3f3;
-      min-height: 60px; /* Evita que o layout quebre se a frase for longa */
-      
+      color: #333; /* Ajustado para preto/cinza para dar leitura em cima do fundo branco */
+      min-height: 60px; 
+      margin-top: 20px;
+    }
+
+    /* Estilo do novo campo de texto integrado ao seu layout */
+    input {
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: 2px solid #945bff;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      width: 80%;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #ff21ec;
     }
 
     button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #ff21ec;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background-color: #e919b1; 
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ff21ec;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 80%;
+    }
+
+    button:hover {
+      background-color: #e919b1; 
     }
   </style>
 </head>
@@ -53,24 +75,42 @@
 <body>
   <main>
     <h1>Olá, Divo(a) ✨</h1>
-    <p id="status">Carregando a resposta do divo...</p>
+    
+    <!-- Novo campo de texto para capturar o nome -->
+    <input type="text" id="nome-input" placeholder="Digite seu nome (opcional)">
+    <br>
     <button id="btn">Nova frase</button>
+
+    <p id="status">Carregando a resposta do divo...</p>
   </main>
 
   <script>
-    // PASSO DO MOVIMENTO 4:
-    // Troque o texto abaixo pela URL do SEU Worker (termina em .workers.dev).
     const URL_DO_WORKER = "https://projetoceuzinhoapi.robertajovemtech.workers.dev/";
 
     async function buscar() {
       const status = document.getElementById("status");
+      const nomeInput = document.getElementById("nome-input");
+      
+      // Captura o nome e remove espaços em branco extras
+      const nomeDigitado = nomeInput.value.trim();
+      
       status.textContent = "Buscando...";
+      
       try {
-        const resposta = await fetch(URL_DO_WORKER);
+        // Monta a URL básica
+        let urlFinal = URL_DO_WORKER;
+        
+        // Se houver um nome digitado, adiciona o parâmetro ?nome= na URL
+        if (nomeDigitado) {
+          urlFinal += `?nome=${encodeURIComponent(nomeDigitado)}`;
+        }
+
+        const resposta = await fetch(urlFinal);
         const dados = await resposta.json();
-        status.textContent = dados.mensagem 
+        status.textContent = dados.mensagem;
       } catch (erro) {
         status.textContent = "Não consegui falar com o Worker. Confira a URL.";
+        console.error(erro);
       }
     }
 
